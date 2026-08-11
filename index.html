@@ -131,122 +131,132 @@ function buildTab0(){
   var pdRows=Object.values(byPD);
 
   
-    // ===== KPI BLOCKS =====
-  // Per-platform cards with budget reference
+    // ===== KPI BLOCKS (DYNAMIC — computed from MAIN_DATA + COST_DATA) =====
+  // Budget allocations (targets, not data)
+  var BUDGETS = {Meta:32670, TikTok:16335, GoogleApp:16335, YouTube:8168, Snapchat:8168};
+  var TOTAL_BUDGET = BUDGETS.Meta + BUDGETS.TikTok + BUDGETS.GoogleApp + BUDGETS.YouTube + BUDGETS.Snapchat;
+
+  // Aggregate MAIN_DATA by platform group
+  var kpiAgg = {Meta:{sessions:0,users:0,completed_orders:0,shop_visitors:0}, TikTok:{sessions:0,users:0,completed_orders:0,shop_visitors:0}, GoogleApp:{sessions:0,users:0,completed_orders:0,shop_visitors:0}, YouTube:{sessions:0,users:0,completed_orders:0,shop_visitors:0}, Snapchat:{sessions:0,users:0,completed_orders:0,shop_visitors:0}};
+  MAIN_DATA.forEach(function(r){
+    var grp;
+    if(r.platform==='Meta') grp='Meta';
+    else if(r.platform==='TikTok') grp='TikTok';
+    else if(r.platform==='Snapchat') grp='Snapchat';
+    else if(r.platform==='Google'){ if(r.asset.indexOf('YTB')>=0) grp='YouTube'; else grp='GoogleApp'; }
+    else return;
+    kpiAgg[grp].sessions += r.sessions;
+    kpiAgg[grp].users += r.users;
+    kpiAgg[grp].completed_orders += r.completed_orders;
+    kpiAgg[grp].shop_visitors += r.shop_visitors;
+  });
+
+  // Aggregate COST_DATA by platform group
+  var costAgg = {Meta:{cost:0,impressions:0}, TikTok:{cost:0,impressions:0}, GoogleApp:{cost:0,impressions:0}, YouTube:{cost:0,impressions:0}, Snapchat:{cost:0,impressions:0}};
+  Object.keys(COST_DATA).forEach(function(asset){
+    var cd = COST_DATA[asset];
+    var grp;
+    if(asset.indexOf('Facebook')>=0) grp='Meta';
+    else if(asset.indexOf('Tiktok')>=0) grp='TikTok';
+    else if(asset.indexOf('SnapChat')>=0) grp='Snapchat';
+    else if(asset.indexOf('Google')>=0){ if(asset.indexOf('YTB')>=0) grp='YouTube'; else grp='GoogleApp'; }
+    else return;
+    costAgg[grp].cost += cd.cost;
+    costAgg[grp].impressions += cd.impressions;
+  });
+
+  // Helper for formatting
+  function fmtMoney(n){ if(n==null||isNaN(n)) return '$0.00'; return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function fmtMoney2(n){ if(n==null||isNaN(n)) return '$0.00'; return '$'+n.toFixed(2); }
+  function fmtNum(n){ if(n==null||isNaN(n)) return '0'; return Math.round(n).toLocaleString('en-US'); }
+
+  // KPI card definitions
+  var kpiCards = [
+    {grp:'Meta', label:'Meta + Instagram', bg:'#4267B2', txt:'#fff', barBg:'rgba(255,255,255,0.3)', barFill:'#fff', opacity:'0.9', borderAlpha:'0.2'},
+    {grp:'TikTok', label:'TikTok', bg:'#00CED1', txt:'#fff', barBg:'rgba(255,255,255,0.3)', barFill:'#fff', opacity:'0.9', borderAlpha:'0.2'},
+    {grp:'GoogleApp', label:'Google App', bg:'#EA4335', txt:'#fff', barBg:'rgba(255,255,255,0.3)', barFill:'#fff', opacity:'0.9', borderAlpha:'0.2'},
+    {grp:'YouTube', label:'YouTube', bg:'#FF0000', txt:'#fff', barBg:'rgba(255,255,255,0.3)', barFill:'#fff', opacity:'0.9', borderAlpha:'0.2'},
+    {grp:'Snapchat', label:'Snapchat', bg:'#FFD700', txt:'#000', barBg:'rgba(0,0,0,0.15)', barFill:'#000', opacity:'0.7', borderAlpha:'0.15'}
+  ];
+
   var kpiHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:16px;">';
-
-  // Meta + Instagram card
-  kpiHtml += '<div style="background:#4267B2;color:#fff;padding:18px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);position:relative;overflow:hidden">';
-  kpiHtml += '<div style="font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px">Meta + Instagram</div>';
-  kpiHtml += '<div style="font-size:30px;font-weight:700;margin:2px 0">$13,673.72</div>';
-  kpiHtml += '<div style="font-size:12px;opacity:0.85;margin-bottom:10px">of $32,670 budget allocated</div>';
-  kpiHtml += '<div style="width:100%;height:8px;background:rgba(255,255,255,0.3);border-radius:4px;overflow:hidden"><div style="width:41.9%;height:100%;background:#fff;border-radius:4px"></div></div>';
-  kpiHtml += '<div style="font-size:11px;opacity:0.85;margin-top:4px;text-align:right">41.9% of budget spent</div>';
-  kpiHtml += '<div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.2);padding-top:8px;margin-bottom:4px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Impressions</span><span style="font-weight:700">7,120,118</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Clicks</span><span style="font-weight:700">134,449</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Sessions</span><span style="font-weight:700">56,627</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">DAUs</span><span style="font-weight:700">59,937</span></div>';
-  kpiHtml += '</div>';
-  kpiHtml += '<div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.2);padding-top:10px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPO</span><span style="font-weight:700">$1.17</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPU</span><span style="font-weight:700">$0.16</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPM</span><span style="font-weight:700">$1.92</span></div>';
-  kpiHtml += '</div></div>';
-
-  // TikTok card
-  kpiHtml += '<div style="background:#00CED1;color:#fff;padding:18px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);position:relative;overflow:hidden">';
-  kpiHtml += '<div style="font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px">TikTok</div>';
-  kpiHtml += '<div style="font-size:30px;font-weight:700;margin:2px 0">$9,471.00</div>';
-  kpiHtml += '<div style="font-size:12px;opacity:0.85;margin-bottom:10px">of $16,335 budget allocated</div>';
-  kpiHtml += '<div style="width:100%;height:8px;background:rgba(255,255,255,0.3);border-radius:4px;overflow:hidden"><div style="width:58.0%;height:100%;background:#fff;border-radius:4px"></div></div>';
-  kpiHtml += '<div style="font-size:11px;opacity:0.85;margin-top:4px;text-align:right">58.0% of budget spent</div>';
-  kpiHtml += '<div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.2);padding-top:8px;margin-bottom:4px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Impressions</span><span style="font-weight:700">3,173,124</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Clicks</span><span style="font-weight:700">34,043</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Sessions</span><span style="font-weight:700">9,361</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">DAUs</span><span style="font-weight:700">5,960</span></div>';
-  kpiHtml += '</div>';
-  kpiHtml += '<div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.2);padding-top:10px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPO</span><span style="font-weight:700">$28.53</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPU</span><span style="font-weight:700">$1.40</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPM</span><span style="font-weight:700">$2.98</span></div>';
-  kpiHtml += '</div></div>';
-
-  // Google (Android) card
-  kpiHtml += '<div style="background:#EA4335;color:#fff;padding:18px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);position:relative;overflow:hidden">';
-  kpiHtml += '<div style="font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px">Google</div>';
-  kpiHtml += '<div style="font-size:30px;font-weight:700;margin:2px 0">$11,672.13</div>';
-  kpiHtml += '<div style="font-size:12px;opacity:0.85;margin-bottom:10px">of $16,335 budget allocated</div>';
-  kpiHtml += '<div style="width:100%;height:8px;background:rgba(255,255,255,0.3);border-radius:4px;overflow:hidden"><div style="width:71.5%;height:100%;background:#fff;border-radius:4px"></div></div>';
-  kpiHtml += '<div style="font-size:11px;opacity:0.85;margin-top:4px;text-align:right">71.5% of budget spent</div>';
-  kpiHtml += '<div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.2);padding-top:8px;margin-bottom:4px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Impressions</span><span style="font-weight:700">4,633,355</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Clicks</span><span style="font-weight:700">187,203</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Sessions</span><span style="font-weight:700">18,058</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">DAUs</span><span style="font-weight:700">13,391</span></div>';
-  kpiHtml += '</div>';
-  kpiHtml += '<div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.2);padding-top:10px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPO</span><span style="font-weight:700">$23.82</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPU</span><span style="font-weight:700">$0.48</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPM</span><span style="font-weight:700">$2.52</span></div>';
-  kpiHtml += '</div></div>';
-
-  // YouTube card
-  kpiHtml += '<div style="background:#FF0000;color:#fff;padding:18px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);position:relative;overflow:hidden">';
-  kpiHtml += '<div style="font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px">YouTube</div>';
-  kpiHtml += '<div style="font-size:30px;font-weight:700;margin:2px 0">$6,707.14</div>';
-  kpiHtml += '<div style="font-size:12px;opacity:0.85;margin-bottom:10px">of $8,168 budget allocated</div>';
-  kpiHtml += '<div style="width:100%;height:8px;background:rgba(255,255,255,0.3);border-radius:4px;overflow:hidden"><div style="width:82.1%;height:100%;background:#fff;border-radius:4px"></div></div>';
-  kpiHtml += '<div style="font-size:11px;opacity:0.85;margin-top:4px;text-align:right">82.1% of budget spent</div>';
-  kpiHtml += '<div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.2);padding-top:8px;margin-bottom:4px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Impressions</span><span style="font-weight:700">4,649,371</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Clicks</span><span style="font-weight:700">671,234</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">Sessions</span><span style="font-weight:700">75</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.9">DAUs</span><span style="font-weight:700">59</span></div>';
-  kpiHtml += '</div>';
-  kpiHtml += '<div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.2);padding-top:10px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPO</span><span style="font-weight:700">$3,353.57</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPU</span><span style="font-weight:700">$117.67</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.9">CPM</span><span style="font-weight:700">$1.44</span></div>';
-  kpiHtml += '</div></div>';
-
-  // Snapchat card
-  kpiHtml += '<div style="background:#FFD700;color:#000;padding:18px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);position:relative;overflow:hidden">';
-  kpiHtml += '<div style="font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px">Snapchat</div>';
-  kpiHtml += '<div style="font-size:30px;font-weight:700;margin:2px 0">$9,432.82</div>';
-  kpiHtml += '<div style="font-size:12px;opacity:0.7;margin-bottom:10px">of $8,168 budget allocated</div>';
-  kpiHtml += '<div style="width:100%;height:8px;background:rgba(0,0,0,0.15);border-radius:4px;overflow:hidden"><div style="width:115.5%;height:100%;background:#000;border-radius:4px"></div></div>';
-  kpiHtml += '<div style="font-size:11px;opacity:0.7;margin-top:4px;text-align:right">115.5% of budget spent</div>';
-  kpiHtml += '<div style="margin-top:10px;border-top:1px solid rgba(0,0,0,0.2);padding-top:8px;margin-bottom:4px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.7">Impressions</span><span style="font-weight:700">3,616,959</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.7">Clicks</span><span style="font-weight:700">10,963</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.7">Sessions</span><span style="font-weight:700">3,933</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:0.7">DAUs</span><span style="font-weight:700">3,043</span></div>';
-  kpiHtml += '</div>';
-  kpiHtml += '<div style="margin-top:12px;border-top:1px solid rgba(0,0,0,0.15);padding-top:10px">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.7">CPO</span><span style="font-weight:700">$25.29</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.7">CPU</span><span style="font-weight:700">$2.60</span></div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:0.7">CPM</span><span style="font-weight:700">$2.61</span></div>';
-  kpiHtml += '</div></div>';
-
+  kpiCards.forEach(function(c){
+    var d = kpiAgg[c.grp];
+    var cd = costAgg[c.grp];
+    var budget = BUDGETS[c.grp];
+    var spend = cd.cost;
+    var impr = cd.impressions;
+    var sessions = d.sessions;
+    var users = d.users;
+    var orders = d.completed_orders;
+    var pctSpent = budget > 0 ? (spend / budget * 100) : 0;
+    var pctStr = pctSpent.toFixed(1);
+    var cpo = orders > 0 ? spend / orders : 0;
+    var cpu = users > 0 ? spend / users : 0;
+    var cpm = impr > 0 ? (spend / impr) * 1000 : 0;
+    var op = c.opacity;
+    var ba = c.borderAlpha;
+    kpiHtml += '<div style="background:'+c.bg+';color:'+c.txt+';padding:18px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.1);position:relative;overflow:hidden">';
+    kpiHtml += '<div style="font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px">'+c.label+'</div>';
+    kpiHtml += '<div style="font-size:30px;font-weight:700;margin:2px 0">'+fmtMoney(spend)+'</div>';
+    kpiHtml += '<div style="font-size:12px;opacity:'+op+';margin-bottom:10px">of '+fmtMoney(budget)+' budget allocated</div>';
+    kpiHtml += '<div style="width:100%;height:8px;background:'+c.barBg+';border-radius:4px;overflow:hidden"><div style="width:'+Math.min(pctSpent,100).toFixed(1)+'%;height:100%;background:'+c.barFill+';border-radius:4px"></div></div>';
+    kpiHtml += '<div style="font-size:11px;opacity:'+op+';margin-top:4px;text-align:right">'+pctStr+'% of budget spent</div>';
+    kpiHtml += '<div style="margin-top:10px;border-top:1px solid rgba(255,255,255,'+ba+');padding-top:8px;margin-bottom:4px">';
+    kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:'+op+'">Impressions</span><span style="font-weight:700">'+fmtNum(impr)+'</span></div>';
+    kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:'+op+'">Sessions</span><span style="font-weight:700">'+fmtNum(sessions)+'</span></div>';
+    kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:'+op+'">Users</span><span style="font-weight:700">'+fmtNum(users)+'</span></div>';
+    kpiHtml += '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span style="opacity:'+op+'">Orders</span><span style="font-weight:700">'+fmtNum(orders)+'</span></div>';
+    kpiHtml += '</div>';
+    kpiHtml += '<div style="margin-top:12px;border-top:1px solid rgba(255,255,255,'+ba+');padding-top:10px">';
+    kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:'+op+'">CPO</span><span style="font-weight:700">'+fmtMoney2(cpo)+'</span></div>';
+    kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:'+op+'">CPU</span><span style="font-weight:700">'+fmtMoney2(cpu)+'</span></div>';
+    kpiHtml += '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span style="opacity:'+op+'">CPM</span><span style="font-weight:700">'+fmtMoney2(cpm)+'</span></div>';
+    kpiHtml += '</div></div>';
+  });
   kpiHtml += '</div>';
 
-  // Overall Budget Progress
-  var totalBudget=81677;
-  var spentCost=50956.81;
-  var pctSpent=(spentCost/totalBudget*100).toFixed(1);
-  var remaining=totalBudget-spentCost;
+  // Overall Budget Progress (dynamic)
+  var totalSpend = costAgg.Meta.cost + costAgg.TikTok.cost + costAgg.GoogleApp.cost + costAgg.YouTube.cost + costAgg.Snapchat.cost;
+  var totalImpr = costAgg.Meta.impressions + costAgg.TikTok.impressions + costAgg.GoogleApp.impressions + costAgg.YouTube.impressions + costAgg.Snapchat.impressions;
+  var totalSessions = kpiAgg.Meta.sessions + kpiAgg.TikTok.sessions + kpiAgg.GoogleApp.sessions + kpiAgg.YouTube.sessions + kpiAgg.Snapchat.sessions;
+  var totalUsers = kpiAgg.Meta.users + kpiAgg.TikTok.users + kpiAgg.GoogleApp.users + kpiAgg.YouTube.users + kpiAgg.Snapchat.users;
+  var totalOrders = kpiAgg.Meta.completed_orders + kpiAgg.TikTok.completed_orders + kpiAgg.GoogleApp.completed_orders + kpiAgg.YouTube.completed_orders + kpiAgg.Snapchat.completed_orders;
+  var pctSpent = (totalSpend / TOTAL_BUDGET * 100).toFixed(1);
+  var remaining = TOTAL_BUDGET - totalSpend;
   kpiHtml += '<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:700;color:#666;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">Overall Budget Progress</div>';
   kpiHtml += '<div style="background:#f8f9fa;border-radius:10px;padding:16px 20px;box-shadow:0 4px 6px rgba(0,0,0,0.1)">';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;font-weight:600;color:#333"><span>Spent: $'+spentCost.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+'</span><span>Budget: $'+totalBudget.toLocaleString()+'.00</span></div>';
+  kpiHtml += '<div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;font-weight:600;color:#333"><span>Spent: '+fmtMoney(totalSpend)+'</span><span>Budget: '+fmtMoney(TOTAL_BUDGET)+'</span></div>';
   kpiHtml += '<div style="width:100%;height:20px;background:#e0e0e0;border-radius:10px;overflow:hidden">';
   kpiHtml += '<div style="width:'+pctSpent+'%;height:100%;background:#00835C;border-radius:10px;transition:width 0.5s"></div>';
   kpiHtml += '</div>';
-  kpiHtml += '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:#666"><span>'+pctSpent+'% spent</span><span>Remaining: $'+remaining.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+'</span></div>';
+  kpiHtml += '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:#666"><span>'+pctSpent+'% spent</span><span>Remaining: '+fmtMoney(remaining)+'</span></div>';
   kpiHtml += '</div></div>';
-// ===== TLDR SECTION =====
-  var tldrHtml = '<div style="background:#f0f7ff;border-left:4px solid #00835C;padding:14px 18px;margin:0 0 20px 0;border-radius:6px;font-size:13px;line-height:1.6;color:#333"><b>Executive Summary — Spiderman Campaign (Jul 20 – Aug 05, 2026)</b><br><br>📈 <b>Campaign-Attributed DAU Trends:</b> Deep-link-attributed DAU strengthened through the campaign period, peaking at <b>7,221 users on 2026-08-02</b>. The strongest single-day surge occurred on <b>Jul 21</b> with a <b>+256%</b> jump in users versus Jul 20, reflecting the initial campaign push. DoD on Aug 05 showed continued momentum: <b>+47.6% users</b>, <b>+52.4% sessions</b>, and <b>+32.9% orders</b>. Week-over-week, total DAU grew <b>+27.3%</b> (W2: 35,126 vs W1: 27,587 users).<br><br>🎯 <b>Platform Segmentation:</b> <b>Meta</b> dominates with <b>73.7%</b> of all campaign-attributed users (46,237 users, 5,981 orders), followed by <b>Google</b> at <b>14.4%</b>, <b>TikTok</b> at <b>8.2%</b>, and <b>Snapchat</b> at <b>3.7%</b>. Meta also leads in conversion efficiency, while Google contributes the highest reach per dollar spent.<br><br>🔄 <b>Win-Back Performance:</b> The campaign reactivated <b>1,108 lapsed users</b> who had not ordered in the prior 30 days, out of <b>28,470 churned users</b> exposed to the campaign — a <b>3.9% win-back rate</b>. This demonstrates the campaign effectiveness in re-engaging dormant customers ahead of the movie release.<br><br>👥 <b>Customer Segment Trends:</b> S1 (super-active) and A1 (highly active) users drove session growth on Aug 05: <b>S1 sessions +45.1%</b>, <b>A1 sessions +34.9%</b> DoD. S1 user count grew <b>+35.3%</b> and A1 users <b>+35.5%</b>, indicating strong engagement from the most valuable segments. The Jul 29 order spike (<b>+61%</b> vs prior day) suggests a mid-campaign creative refresh or budget push drove conversion acceleration.<br><br>🗺️ <b>AOR Performance:</b> Top user-growth AORs on Aug 05 include  — reflecting hyper-localized demand surges tied to campaign delivery.<br><br>🎬 <b>Movie Release Context:</b> The Spiderman movie released on <b>August 30, 2026</b>. This campaign ran <b>28 days pre-release</b>, building anticipation and priming user acquisition. Performance consistently strengthened as the campaign matured, with the final week showing the highest DAU and order volumes — likely supported by growing awareness and organic interest in the partnership. The Aug 05 data point (7,221 users, 792 orders) represents the campaign strongest day, suggesting optimal frequency and creative resonance as the movie premiere approached.</div>';
+
+  // ===== TLDR / EXECUTIVE SUMMARY (dynamic) =====
+  var totalCpo = totalOrders > 0 ? totalSpend / totalOrders : 0;
+  var totalCpm = totalImpr > 0 ? (totalSpend / totalImpr) * 1000 : 0;
+  var metaShare = totalUsers > 0 ? (kpiAgg.Meta.users / totalUsers * 100).toFixed(1) : '0';
+  var googleShare = totalUsers > 0 ? ((kpiAgg.GoogleApp.users + kpiAgg.YouTube.users) / totalUsers * 100).toFixed(1) : '0';
+  var tiktokShare = totalUsers > 0 ? (kpiAgg.TikTok.users / totalUsers * 100).toFixed(1) : '0';
+  var snapShare = totalUsers > 0 ? (kpiAgg.Snapchat.users / totalUsers * 100).toFixed(1) : '0';
+  var allDates = []; MAIN_DATA.forEach(function(r){ if(allDates.indexOf(r.date)<0) allDates.push(r.date); }); allDates.sort();
+  var dateStart = allDates[0] || '';
+  var dateEnd = allDates[allDates.length-1] || '';
+  var tldrHtml = '<div style="background:#f0f7ff;border-left:4px solid #00835C;padding:14px 18px;margin:0 0 20px 0;border-radius:6px;font-size:13px;line-height:1.6;color:#333">';
+  tldrHtml += '<b>Executive Summary — Spiderman Campaign ('+dateStart+' to '+dateEnd+')</b><br><br>';
+  tldrHtml += '📊 <b>Campaign Totals:</b> Across all platforms, the campaign drove <b>'+fmtNum(totalUsers)+' users</b>, <b>'+fmtNum(totalSessions)+' sessions</b>, and <b>'+fmtNum(totalOrders)+' orders</b>. Total spend: <b>'+fmtMoney(totalSpend)+'</b> of <b>'+fmtMoney(TOTAL_BUDGET)+'</b> budget ('+pctSpent+'% utilized). Overall CPO: <b>'+fmtMoney2(totalCpo)+'</b>, CPM: <b>'+fmtMoney2(totalCpm)+'</b>.<br><br>';
+  tldrHtml += '🎯 <b>Platform Segmentation:</b> <b>Meta</b> leads with <b>'+metaShare+'%</b> of users ('+fmtNum(kpiAgg.Meta.users)+' users, '+fmtNum(kpiAgg.Meta.completed_orders)+' orders), followed by <b>Google</b> at <b>'+googleShare+'%</b>, <b>TikTok</b> at <b>'+tiktokShare+'%</b>, and <b>Snapchat</b> at <b>'+snapShare+'%</b>.<br><br>';
+  tldrHtml += '⚠️ <b>Data Note:</b> Meta iOS records report sessions=0 (iPhone attribution gap), causing total Meta sessions ('+fmtNum(kpiAgg.Meta.sessions)+') to appear lower than users ('+fmtNum(kpiAgg.Meta.users)+'). This is a source data issue, not a display bug.<br><br>';
+  tldrHtml += '💰 <b>Budget Utilization:</b> ';
+  kpiCards.forEach(function(c,i){
+    var cd = costAgg[c.grp]; var b = BUDGETS[c.grp];
+    tldrHtml += c.label+': '+(cd.cost/b*100).toFixed(1)+'% ('+fmtMoney(cd.cost)+'/'+fmtMoney(b)+')';
+    if(i<kpiCards.length-1) tldrHtml += ' | ';
+  });
+  tldrHtml += '<br><br>';
+  tldrHtml += '🎬 <b>Movie Release Context:</b> The Spiderman movie released on <b>August 30, 2026</b>. This campaign ran preceding the release, building anticipation and priming user acquisition.</div>';
+
 
 
 var h=kpiHtml+tldrHtml+'<div class="section"><h2>Platform Trends</h2>';
