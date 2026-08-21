@@ -3,380 +3,249 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spiderman Post-Campaign Report v3</title>
+<title>Spiderman Post-Campaign Report</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-:root{--green:#0EB276;--green-light:#E8F8F1;--green-dark:#0A8A5C;--text:#1A1A2E;--text-secondary:#6B7280;--bg:#F7F8FA;--card:#FFFFFF;--border:#E5E7EB;--red:#EF4444;--orange:#F59E0B;--blue:#3B82F6;--purple:#8B5CF6;--gray:#9CA3AF}
+:root{--green:#0EB276;--green-dark:#0a9e68;--green-light:#e8f9f0;--green-pale:#f5fdf9;--text:#1a1a2e;--text-muted:#6b7280;--border:#e5e7eb;--bg:#f8fafc;--red:#ef4444;--orange:#f59e0b;--blue:#3b82f6;--purple:#8b5cf6}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-.container{max-width:1400px;margin:0 auto;padding:24px}
-.header{background:linear-gradient(135deg,var(--green) 0%,var(--green-dark) 100%);color:white;padding:40px 32px;border-radius:16px;margin-bottom:32px}
-.header h1{font-size:28px;font-weight:700;margin-bottom:8px}
-.header .subtitle{font-size:15px;opacity:0.9}
-.header .dates{display:inline-block;background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:13px;margin-top:12px}
-.section{background:var(--card);border-radius:12px;padding:28px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-.section-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.section-title::before{content:'';display:inline-block;width:4px;height:20px;background:var(--green);border-radius:2px}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:20px}
-.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center}
-.kpi-card .label{font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
-.kpi-card .value{font-size:26px;font-weight:700;color:var(--text)}
-.kpi-card .sub{font-size:11px;color:var(--text-secondary);margin-top:4px}
-.kpi-card.green .value{color:var(--green)}
-.kpi-card.blue .value{color:var(--blue)}
-.kpi-card.orange .value{color:var(--orange)}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th{background:var(--green-light);color:var(--green-dark);padding:10px 12px;text-align:left;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.3px}
-td{padding:10px 12px;border-bottom:1px solid var(--border)}
-tr:hover td{background:#F9FAFB}
-.num{text-align:right;font-variant-numeric:tabular-nums}
-.chart-container{position:relative;height:400px;margin:16px 0}
-.chart-container.tall{height:500px}
-.chart-wrapper{background:#FAFBFC;border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:16px}
-.chart-title{font-size:14px;font-weight:600;color:var(--text-secondary);margin-bottom:8px}
-.note{background:#FFFBEB;border-left:4px solid var(--orange);padding:12px 16px;border-radius:6px;font-size:14px;margin-top:16px}
-.note.green{background:var(--green-light);border-left-color:var(--green)}
-.note strong{color:var(--text)}
-.contrib-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
-.contrib-card{background:var(--green-light);border-radius:10px;padding:24px;text-align:center}
-.contrib-card .label{font-size:13px;color:var(--text-secondary);margin-bottom:8px}
-.contrib-card .value{font-size:32px;font-weight:700;color:var(--green)}
-.contrib-card .detail{font-size:12px;color:var(--text-secondary);margin-top:4px}
-.footer{text-align:center;padding:32px;color:var(--text-secondary);font-size:13px}
-@media(max-width:768px){.kpi-grid,.contrib-grid{grid-template-columns:1fr 1fr}.container{padding:12px}.section{padding:16px}}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.header{background:linear-gradient(135deg,#0EB276 0%,#0a9e68 100%);color:#fff;padding:48px 32px;border-radius:16px;margin-bottom:32px}
+.header h1{font-size:2.2rem;font-weight:700;margin-bottom:8px}
+.header .subtitle{font-size:1.1rem;opacity:.9}
+.header .dates{font-size:.95rem;opacity:.8;margin-top:8px}
+.section{background:#fff;border-radius:12px;padding:28px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.section h2{font-size:1.4rem;font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #e8f9f0}
+.section h3{font-size:1.1rem;font-weight:500;margin:16px 0 12px;color:#6b7280}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:8px}
+.kpi-card{background:#f5fdf9;border:1px solid #e8f9f0;border-radius:10px;padding:20px;text-align:center}
+.kpi-card .label{font-size:.8rem;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.kpi-card .value{font-size:1.6rem;font-weight:700;color:#0EB276}
+.kpi-card .sub{font-size:.85rem;color:#6b7280;margin-top:4px}
+.contrib-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px}
+.contrib-card{background:#fff;border:2px solid #0EB276;border-radius:12px;padding:24px;text-align:center}
+.contrib-card .big{font-size:2.2rem;font-weight:700;color:#0EB276;margin:8px 0}
+.contrib-card .label{font-size:.9rem;color:#6b7280}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:12px 0}
+th{text-align:left;padding:12px 14px;background:#e8f9f0;color:#0a9e68;font-weight:700}
+td{padding:10px 14px;border-bottom:1px solid #e5e7eb}
+tbody tr:hover{background:#f5fdf9}
+tbody tr:last-child td{border-bottom:none}
+.chart-wrap{position:relative;height:320px;margin:16px 0}
+.chart-wrap.tall{height:400px}
+.note{background:#f5fdf9;border-left:4px solid #0EB276;padding:12px 16px;border-radius:0 8px 8px 0;font-size:.9rem;margin:12px 0}
+.footer{text-align:center;padding:32px;color:#6b7280;font-size:.85rem}
 </style>
 </head>
 <body>
 <div class="container">
-
-<div class="header">
-  <h1>Spiderman Post-Campaign Report</h1>
-  <div class="subtitle">Keeta UAE | Marketing Campaign Analysis</div>
-  <div class="dates">Jul 20 - Aug 20, 2026 (32 days)</div>
+<div class="header"><h1>Spiderman Post-Campaign Report</h1><div class="subtitle">Keeta UAE | Brand Campaign Performance Analysis</div><div class="dates">Campaign Period: Jul 20 - Aug 20, 2026 (32 Days)</div></div>
+<div class="section"><h2>Executive Summary</h2><div class="kpi-grid">
+<div class="kpi-card"><div class="label">Total Spend</div><div class="value">$73,508</div><div class="sub">across 4 platforms</div></div>
+<div class="kpi-card"><div class="label">Spiderman Orders</div><div class="value">16,944</div><div class="sub">attributed</div></div>
+<div class="kpi-card"><div class="label">Avg Daily DAU</div><div class="value">333,127</div><div class="sub">UAE total</div></div>
+<div class="kpi-card"><div class="label">Total Sessions</div><div class="value">183,690</div><div class="sub">Spiderman</div></div>
+<div class="kpi-card"><div class="label">Total Users</div><div class="value">166,650</div><div class="sub">Spiderman</div></div>
+<div class="kpi-card"><div class="label">Overall CPO</div><div class="value">$4.34</div><div class="sub">blended</div></div>
+<div class="kpi-card"><div class="label">Contribution</div><div class="value">0.42%</div><div class="sub">of UAE orders</div></div>
+</div></div>
+<div class="section"><h2>Contribution Analysis</h2><div class="contrib-grid">
+<div class="contrib-card"><div class="label">% of UAE Orders</div><div class="big">0.42%</div><div class="label">16,944 / 4,068,579</div></div>
+<div class="contrib-card"><div class="label">% of UAE DAU</div><div class="big">1.56%</div><div class="label">Spiderman users vs total DAU</div></div>
+<div class="contrib-card"><div class="label">Avg Daily Spiderman Orders</div><div class="big">529</div><div class="label">vs UAE avg 127,143</div></div>
 </div>
-
-<div class="section">
-  <div class="section-title">Executive Summary</div>
-  <div class="kpi-grid">
-    <div class="kpi-card green"><div class="label">Total Spend</div><div class="value">$73,508</div><div class="sub">USD across 4 platforms</div></div>
-    <div class="kpi-card"><div class="label">Spiderman Orders</div><div class="value">16,944</div><div class="sub">across 32 days</div></div>
-    <div class="kpi-card"><div class="label">Total Sessions</div><div class="value">183,690</div><div class="sub">Spiderman-driven</div></div>
-    <div class="kpi-card"><div class="label">Total Users</div><div class="value">166,650</div><div class="sub">Spiderman-acquired</div></div>
-    <div class="kpi-card blue"><div class="label">Avg Daily DAU</div><div class="value">333,127</div><div class="sub">UAE total during campaign</div></div>
-    <div class="kpi-card orange"><div class="label">Peak DAU</div><div class="value">362,827</div><div class="sub">UAE total peak</div></div>
-    <div class="kpi-card"><div class="label">Total DAU (Campaign)</div><div class="value">10,660,090</div><div class="sub">Sum of 32 days</div></div>
-    <div class="kpi-card"><div class="label">Overall CPO</div><div class="value">$4.34</div><div class="sub">Spend / Orders</div></div>
-    <div class="kpi-card"><div class="label">Overall CPU</div><div class="value">$0.44</div><div class="sub">Spend / Users</div></div>
-    <div class="kpi-card"><div class="label">Overall CPM</div><div class="value">$1.72</div><div class="sub">Spend / 1K Impr.</div></div>
-  </div>
+<table><thead><tr><th>Metric</th><th>Spiderman</th><th>UAE Total</th><th>Share</th></tr></thead><tbody>
+<tr><td>Daily Orders (avg)</td><td>529</td><td>127,143</td><td>0.42%</td></tr>
+<tr><td>Total Orders</td><td>16,944</td><td>4,068,579</td><td>0.42%</td></tr>
+<tr><td>Total Users</td><td>166,650</td><td>333,127 (avg DAU)</td><td>1.56%</td></tr>
+</tbody></table>
+<h3>Daily Orders: UAE vs Spiderman</h3>
+<div class="chart-wrap tall"><canvas id="chartOrdersComparison"></canvas></div>
 </div>
-
-<div class="section">
-  <div class="section-title">Spiderman's Contribution to UAE Total</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">Spiderman campaigns drove <strong>16,944</strong> orders out of <strong>4,068,579</strong> total UAE orders across all 32 days. Daily Spiderman orders averaged ~530 vs. UAE daily average of ~127,143.</p>
-  <div class="contrib-grid">
-    <div class="contrib-card"><div class="label">% of UAE Orders</div><div class="value">0.42%</div><div class="detail">16,944 / 4,068,579</div></div>
-    <div class="contrib-card"><div class="label">% of UAE DAU (Daily)</div><div class="value">1.28%</div><div class="detail">4,263 avg / 333,128 avg</div></div>
-    <div class="contrib-card"><div class="label">Spiderman % of Total DAU</div><div class="value">1.56%</div><div class="detail">166,650 / 10,660,096</div></div>
-  </div>
-  <table>
-    <thead><tr><th>Metric</th><th class="num">Spiderman</th><th class="num">UAE Total</th><th class="num">Contribution %</th></tr></thead>
-    <tbody>
-      <tr><td>Total Orders (32 days)</td><td class="num">16,944</td><td class="num">4,068,579</td><td class="num">0.42%</td></tr>
-      <tr><td>Avg Daily Orders</td><td class="num">530</td><td class="num">127,143</td><td class="num">0.42%</td></tr>
-      <tr><td>Avg Daily DAU</td><td class="num">4,263</td><td class="num">333,128</td><td class="num">1.28%</td></tr>
-      <tr><td>Total DAU (32 days)</td><td class="num">166,650</td><td class="num">10,660,096</td><td class="num">1.56%</td></tr>
-    </tbody>
-  </table>
-  <div class="chart-wrapper">
-    <div class="chart-title">Daily UAE Orders (bars) vs Spiderman Daily Orders (line) vs Contribution % (line)</div>
-    <div class="chart-container tall"><canvas id="contribChart"></canvas></div>
-  </div>
+<div class="section"><h2>60-Day Baseline vs Campaign</h2><div class="kpi-grid">
+<div class="kpi-card"><div class="label">Baseline Avg Daily Orders</div><div class="value">123,238</div><div class="sub">May 21 - Jul 19</div></div>
+<div class="kpi-card"><div class="label">Campaign Avg Daily Orders</div><div class="value">127,143</div><div class="sub">Jul 20 - Aug 20</div></div>
+<div class="kpi-card"><div class="label">Orders Uplift</div><div class="value" style="color:#0EB276">3.17%</div></div>
+<div class="kpi-card"><div class="label">DAU Change</div><div class="value" style="color:#ef4444">-2.67%</div></div>
 </div>
-
-<div class="section">
-  <div class="section-title">60-Day Baseline vs Campaign Period</div>
-  <div class="kpi-grid">
-    <div class="kpi-card"><div class="label">Baseline Avg Daily Orders</div><div class="value">123,238</div><div class="sub">60 days (May 21 - Jul 19)</div></div>
-    <div class="kpi-card green"><div class="label">Campaign Avg Daily Orders</div><div class="value">127,143</div><div class="sub">32 days (Jul 20 - Aug 20)</div></div>
-    <div class="kpi-card"><div class="label">Orders Uplift</div><div class="value" style="color:var(--green)">+3.2%</div><div class="sub">Campaign vs baseline</div></div>
-    <div class="kpi-card"><div class="label">Baseline Avg DAU</div><div class="value">342,255</div><div class="sub">60-day pre-campaign</div></div>
-    <div class="kpi-card"><div class="label">Campaign Avg DAU</div><div class="value">333,128</div><div class="sub">32-day campaign</div></div>
-    <div class="kpi-card"><div class="label">DAU Change</div><div class="value" style="color:var(--red)">-2.7%</div><div class="sub">DAU actually declined</div></div>
-  </div>
-  <div class="chart-wrapper">
-    <div class="chart-title">Daily Orders: 60-Day Baseline to 32-Day Campaign (vertical line at Jul 20 = campaign start)</div>
-    <div class="chart-container tall"><canvas id="baselineChart"></canvas></div>
-  </div>
-  <div class="note">
-    <strong>Key Insight:</strong> DAU <em>declined</em> 2.7% during the campaign (342K to 333K), but orders <em>grew</em> 3.2% (123K to 127K). This means conversion rate improved - users were more likely to place orders even though fewer were active. However, Spiderman's contribution is only <strong>0.42% of total orders</strong> and <strong>1.28% of DAU</strong> - too small to explain the uplift. The order increase likely came from organic growth, seasonal patterns, or other marketing activities.
-  </div>
+<h3>Daily UAE Orders: Baseline (60d) + Campaign (32d)</h3>
+<div class="chart-wrap tall"><canvas id="chartBaselineCampaign"></canvas></div>
+<div class="note">Despite a 2.67% decline in DAU, daily orders grew 3.17% during the campaign period, indicating improved conversion and order frequency.</div>
 </div>
+<div class="section"><h2>Platform Summary</h2>
+<table><thead><tr><th>Platform</th><th>Spend</th><th>Orders</th><th>Users</th><th>Sessions</th><th>CPO</th><th>CPU</th><th>CPS</th></tr></thead><tbody>
+<tr><td><strong>Meta</strong></td><td>$32,670</td><td>15,225</td><td>113,065</td><td>106,233</td><td>$2.15</td><td>$0.29</td><td>$0.31</td></tr>
+<tr><td><strong>Google</strong></td><td>$16,335</td><td>893</td><td>42,209</td><td>60,986</td><td>$18.29</td><td>$0.39</td><td>$0.27</td></tr>
+<tr><td><strong>TikTok</strong></td><td>$16,335</td><td>352</td><td>6,996</td><td>10,774</td><td>$46.41</td><td>$2.33</td><td>$1.52</td></tr>
+<tr><td><strong>Snapchat</strong></td><td>$8,168</td><td>474</td><td>4,380</td><td>5,697</td><td>$17.23</td><td>$1.86</td><td>$1.43</td></tr>
 
-<div class="section">
-  <div class="section-title">Day-over-Day & Week-over-Week Shifts</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">Spiderman daily orders and user trends from Jul 23 onward (first 3 days excluded for stabilization).</p>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>Date</th><th class="num">Orders</th><th class="num">Users</th><th class="num">Sessions</th><th class="num">DoD Orders Delta</th><th class="num">DoD %</th><th class="num">WoW Orders Delta</th><th class="num">WoW %</th></tr></thead>
-      <tbody>
-      <tr><td>2026-07-23</td><td class='num'>511</td><td class='num'>3907</td><td class='num'>3448</td><td class='num'>-</td><td class='num'>-</td><td class='num'>-</td><td class='num'>-</td></tr>
-      <tr><td>2026-07-24</td><td class='num'>545</td><td class='num'>4000</td><td class='num'>3749</td><td class='num'>34</td><td class='num'>+6.7%</td><td class='num'>-</td><td class='num'>-</td></tr>
-      <tr><td>2026-07-25</td><td class='num'>451</td><td class='num'>3969</td><td class='num'>4429</td><td class='num'>-94</td><td class='num'>-17.2%</td><td class='num'>-</td><td class='num'>-</td></tr>
-      <tr><td>2026-07-26</td><td class='num'>434</td><td class='num'>4617</td><td class='num'>5371</td><td class='num'>-17</td><td class='num'>-3.8%</td><td class='num'>-</td><td class='num'>-</td></tr>
-      <tr><td>2026-07-27</td><td class='num'>376</td><td class='num'>4138</td><td class='num'>5212</td><td class='num'>-58</td><td class='num'>-13.4%</td><td class='num'>258</td><td class='num'>+218.6%</td></tr>
-      <tr><td>2026-07-28</td><td class='num'>369</td><td class='num'>4432</td><td class='num'>5495</td><td class='num'>-7</td><td class='num'>-1.9%</td><td class='num'>-32</td><td class='num'>-8.0%</td></tr>
-      <tr><td>2026-07-29</td><td class='num'>609</td><td class='num'>4835</td><td class='num'>5310</td><td class='num'>240</td><td class='num'>+65.0%</td><td class='num'>107</td><td class='num'>+21.3%</td></tr>
-      <tr><td>2026-07-30</td><td class='num'>649</td><td class='num'>4251</td><td class='num'>4300</td><td class='num'>40</td><td class='num'>+6.6%</td><td class='num'>138</td><td class='num'>+27.0%</td></tr>
-      <tr><td>2026-07-31</td><td class='num'>788</td><td class='num'>5356</td><td class='num'>5043</td><td class='num'>139</td><td class='num'>+21.4%</td><td class='num'>243</td><td class='num'>+44.6%</td></tr>
-      <tr><td>2026-08-01</td><td class='num'>666</td><td class='num'>4893</td><td class='num'>4636</td><td class='num'>-122</td><td class='num'>-15.5%</td><td class='num'>215</td><td class='num'>+47.7%</td></tr>
-      <tr><td>2026-08-02</td><td class='num'>895</td><td class='num'>7221</td><td class='num'>7064</td><td class='num'>229</td><td class='num'>+34.4%</td><td class='num'>461</td><td class='num'>+106.2%</td></tr>
-      <tr><td>2026-08-03</td><td class='num'>694</td><td class='num'>6449</td><td class='num'>6559</td><td class='num'>-201</td><td class='num'>-22.5%</td><td class='num'>318</td><td class='num'>+84.6%</td></tr>
-      <tr><td>2026-08-04</td><td class='num'>695</td><td class='num'>6796</td><td class='num'>6900</td><td class='num'>1</td><td class='num'>+0.1%</td><td class='num'>326</td><td class='num'>+88.3%</td></tr>
-      <tr><td>2026-08-05</td><td class='num'>627</td><td class='num'>6086</td><td class='num'>6719</td><td class='num'>-68</td><td class='num'>-9.8%</td><td class='num'>18</td><td class='num'>+3.0%</td></tr>
-      <tr><td>2026-08-06</td><td class='num'>676</td><td class='num'>7007</td><td class='num'>7709</td><td class='num'>49</td><td class='num'>+7.8%</td><td class='num'>27</td><td class='num'>+4.2%</td></tr>
-      <tr><td>2026-08-07</td><td class='num'>809</td><td class='num'>8074</td><td class='num'>9274</td><td class='num'>133</td><td class='num'>+19.7%</td><td class='num'>21</td><td class='num'>+2.7%</td></tr>
-      <tr><td>2026-08-08</td><td class='num'>742</td><td class='num'>7306</td><td class='num'>8350</td><td class='num'>-67</td><td class='num'>-8.3%</td><td class='num'>76</td><td class='num'>+11.4%</td></tr>
-      <tr><td>2026-08-09</td><td class='num'>738</td><td class='num'>8201</td><td class='num'>9363</td><td class='num'>-4</td><td class='num'>-0.5%</td><td class='num'>-157</td><td class='num'>-17.5%</td></tr>
-      <tr><td>2026-08-10</td><td class='num'>626</td><td class='num'>7994</td><td class='num'>8692</td><td class='num'>-112</td><td class='num'>-15.2%</td><td class='num'>-68</td><td class='num'>-9.8%</td></tr>
-      <tr><td>2026-08-11</td><td class='num'>630</td><td class='num'>8005</td><td class='num'>8965</td><td class='num'>4</td><td class='num'>+0.6%</td><td class='num'>-65</td><td class='num'>-9.3%</td></tr>
-      <tr><td>2026-08-12</td><td class='num'>602</td><td class='num'>7269</td><td class='num'>8041</td><td class='num'>-28</td><td class='num'>-4.4%</td><td class='num'>-25</td><td class='num'>-4.0%</td></tr>
-      <tr><td>2026-08-13</td><td class='num'>698</td><td class='num'>7363</td><td class='num'>8192</td><td class='num'>96</td><td class='num'>+15.9%</td><td class='num'>22</td><td class='num'>+3.2%</td></tr>
-      <tr><td>2026-08-14</td><td class='num'>669</td><td class='num'>7311</td><td class='num'>8639</td><td class='num'>-29</td><td class='num'>-4.2%</td><td class='num'>-140</td><td class='num'>-17.3%</td></tr>
-      <tr><td>2026-08-15</td><td class='num'>711</td><td class='num'>8210</td><td class='num'>9874</td><td class='num'>42</td><td class='num'>+6.3%</td><td class='num'>-31</td><td class='num'>-4.2%</td></tr>
-      <tr><td>2026-08-16</td><td class='num'>713</td><td class='num'>7866</td><td class='num'>9100</td><td class='num'>2</td><td class='num'>+0.3%</td><td class='num'>-25</td><td class='num'>-3.4%</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="chart-wrapper">
-    <div class="chart-title">Daily Orders with DoD % Change</div>
-    <div class="chart-container"><canvas id="dodChart"></canvas></div>
-  </div>
-  <div class="note green"><strong>Pattern Summary:</strong> Max consecutive growth days: 3 | Max consecutive decline days: 4 | Overall recent trend: <strong>GROWTH</strong></div>
+</tbody></table>
+<h3>CPO by Platform</h3>
+<div class="chart-wrap"><canvas id="chartCpoPlatform"></canvas></div>
 </div>
+<div class="section"><h2>S1 / A1 Efficiency</h2>
+<table><thead><tr><th>Platform</th><th>S1 Orders</th><th>A1 Orders</th><th>S1 CPO</th><th>A1 CPO</th><th>S1 CPU</th><th>A1 CPU</th></tr></thead><tbody>
+<tr><td><strong>Meta</strong></td><td>1,754</td><td>4,570</td><td>$18.63</td><td>$7.15</td><td>$2.85</td><td>$1.31</td></tr>
+<tr><td><strong>Google</strong></td><td>74</td><td>190</td><td>$220.74</td><td>$85.97</td><td>$3.98</td><td>$2.38</td></tr>
+<tr><td><strong>TikTok</strong></td><td>133</td><td>78</td><td>$122.82</td><td>$209.42</td><td>$7.31</td><td>$11.51</td></tr>
+<tr><td><strong>Snapchat</strong></td><td>262</td><td>104</td><td>$31.18</td><td>$78.54</td><td>$3.35</td><td>$9.25</td></tr>
 
-<div class="section">
-  <div class="section-title">Platform Summary - Spend & Efficiency</div>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>Platform</th><th class="num">Spend ($)</th><th class="num">Orders</th><th class="num">Users</th><th class="num">Sessions</th><th class="num">Impr.</th><th class="num">CPO ($)</th><th class="num">CPU ($)</th><th class="num">CPM ($)</th><th class="num">CPS ($)</th></tr></thead>
-      <tbody>
-      <tr><td>Meta</td><td class='num'>$32,670</td><td class='num'>15,225</td><td class='num'>113,065</td><td class='num'>106,233</td><td class='num'>17,146,608</td><td class='num'>$2.15</td><td class='num'>$0.29</td><td class='num'>$1.91</td><td class='num'>$0.31</td></tr>
-      <tr><td>Google</td><td class='num'>$16,335</td><td class='num'>893</td><td class='num'>42,209</td><td class='num'>60,986</td><td class='num'>13,354,485</td><td class='num'>$18.29</td><td class='num'>$0.39</td><td class='num'>$1.22</td><td class='num'>$0.27</td></tr>
-      <tr><td>TikTok</td><td class='num'>$16,335</td><td class='num'>352</td><td class='num'>6,996</td><td class='num'>10,774</td><td class='num'>7,416,712</td><td class='num'>$46.41</td><td class='num'>$2.33</td><td class='num'>$2.20</td><td class='num'>$1.52</td></tr>
-      <tr><td>Snapchat</td><td class='num'>$8,168</td><td class='num'>474</td><td class='num'>4,380</td><td class='num'>5,697</td><td class='num'>4,937,851</td><td class='num'>$17.23</td><td class='num'>$1.86</td><td class='num'>$1.65</td><td class='num'>$1.43</td></tr>
-      <tr style='font-weight:700;background:var(--green-light)'><td>Total</td><td class='num'>$73,508</td><td class='num'>16,944</td><td class='num'>166,650</td><td class='num'>183,690</td><td class='num'>42,855,656</td><td class='num'>$4.34</td><td class='num'>$0.44</td><td class='num'>$1.72</td><td class='num'>$0.40</td></tr>
-      </tbody>
-    </table>
-  </div>
+</tbody></table>
+<h3>S1 vs A1 Orders by Platform</h3>
+<div class="chart-wrap tall"><canvas id="chartS1A1Efficiency"></canvas></div>
 </div>
+<div class="section"><h2>SAB Segmentation</h2>
+<table><thead><tr><th>Segment</th><th>Total DAU</th><th>Avg Daily DAU</th><th>DAU Share</th><th>Total Orders</th><th>Order Share</th><th>Ordering %</th></tr></thead><tbody>
+<tr><td><strong>S1</strong></td><td>1,882,035</td><td>58,813</td><td>17.7%</td><td>782,192</td><td>19.2%</td><td>41.6%</td></tr>
+<tr><td><strong>A1</strong></td><td>2,035,864</td><td>63,620</td><td>19.1%</td><td>906,145</td><td>22.3%</td><td>44.5%</td></tr>
+<tr><td><strong>S2</strong></td><td>5,463</td><td>170</td><td>0.1%</td><td>3,684</td><td>0.1%</td><td>67.4%</td></tr>
+<tr><td><strong>A2</strong></td><td>3,714,325</td><td>116,072</td><td>34.8%</td><td>1,290,132</td><td>31.7%</td><td>34.7%</td></tr>
+<tr><td><strong>A3</strong></td><td>2,039,984</td><td>63,749</td><td>19.1%</td><td>832,962</td><td>20.5%</td><td>40.8%</td></tr>
+<tr><td><strong>B</strong></td><td>982,419</td><td>30,700</td><td>9.2%</td><td>253,464</td><td>6.2%</td><td>25.8%</td></tr>
 
-<div class="section">
-  <div class="section-title">S1 / A1 Efficiency by Platform</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">S1 = New-to-brand users | A1 = Re-introduced users (returning after 30+ days)</p>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>Platform</th><th class="num">S1 Orders</th><th class="num">A1 Orders</th><th class="num">S1 CPO ($)</th><th class="num">A1 CPO ($)</th><th class="num">S1 CPU ($)</th><th class="num">A1 CPU ($)</th></tr></thead>
-      <tbody>
-      <tr><td>Meta</td><td class='num'>1,754</td><td class='num'>4,570</td><td class='num'>$18.63</td><td class='num'>$7.15</td><td class='num'>$2.85</td><td class='num'>$1.31</td></tr>
-      <tr><td>Google</td><td class='num'>74</td><td class='num'>190</td><td class='num'>$220.74</td><td class='num'>$85.97</td><td class='num'>$3.98</td><td class='num'>$2.38</td></tr>
-      <tr><td>TikTok</td><td class='num'>133</td><td class='num'>78</td><td class='num'>$122.82</td><td class='num'>$209.42</td><td class='num'>$7.31</td><td class='num'>$11.51</td></tr>
-      <tr><td>Snapchat</td><td class='num'>262</td><td class='num'>104</td><td class='num'>$31.18</td><td class='num'>$78.54</td><td class='num'>$3.35</td><td class='num'>$9.25</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="chart-wrapper">
-    <div class="chart-title">S1 vs A1 CPO by Platform (y-axis capped at $250 for readability)</div>
-    <div class="chart-container"><canvas id="s1a1Chart"></canvas></div>
-  </div>
+</tbody></table>
+<h3>Daily DAU by Segment</h3>
+<div class="chart-wrap tall"><canvas id="chartSabDaily"></canvas></div>
 </div>
+<div class="section"><h2>Lifecycle Segmentation</h2>
+<table><thead><tr><th>Stage</th><th>Total Users</th><th>User Share</th><th>Total Orders</th><th>Order Share</th><th>Ordering %</th></tr></thead><tbody>
+<tr><td><strong>Stage 1 (New)</strong></td><td>198,171</td><td>1.9%</td><td>83,014</td><td>2.0%</td><td>41.9%</td></tr>
+<tr><td><strong>Stage 2 (Transitional)</strong></td><td>642,331</td><td>6.0%</td><td>81,545</td><td>2.0%</td><td>12.7%</td></tr>
+<tr><td><strong>Stage 3 (Mature)</strong></td><td>9,819,588</td><td>92.1%</td><td>3,904,020</td><td>96.0%</td><td>39.8%</td></tr>
 
-<div class="section">
-  <div class="section-title">SAB Segmentation (S1/S2/A1/A2/A3/B)</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">User segmentation: S1=New, S2=Re-acquired, A1=Recently Active, A2=Stable Active, A3=Highly Active, B=Churned/Inactive</p>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>Segment</th><th class="num">Total DAU</th><th class="num">Avg Daily DAU</th><th class="num">DAU Share %</th><th class="num">Total Orders</th><th class="num">Order Share %</th><th class="num">Ordering %</th></tr></thead>
-      <tbody>
-      <tr><td>S1 (New)</td><td class='num'>1,882,035</td><td class='num'>58,813</td><td class='num'>17.65%</td><td class='num'>782,192</td><td class='num'>19.23%</td><td class='num'>41.56%</td></tr>
-      <tr><td>A1 (Recently Active)</td><td class='num'>2,035,864</td><td class='num'>63,620</td><td class='num'>19.10%</td><td class='num'>906,145</td><td class='num'>22.27%</td><td class='num'>44.51%</td></tr>
-      <tr><td>S2 (Re-acquired)</td><td class='num'>5,463</td><td class='num'>170</td><td class='num'>0.05%</td><td class='num'>3,684</td><td class='num'>0.09%</td><td class='num'>67.44%</td></tr>
-      <tr><td>A2 (Stable Active)</td><td class='num'>3,714,325</td><td class='num'>116,072</td><td class='num'>34.84%</td><td class='num'>1,290,132</td><td class='num'>31.71%</td><td class='num'>34.73%</td></tr>
-      <tr><td>A3 (Highly Active)</td><td class='num'>2,039,984</td><td class='num'>63,749</td><td class='num'>19.14%</td><td class='num'>832,962</td><td class='num'>20.47%</td><td class='num'>40.83%</td></tr>
-      <tr><td>B (Churned/Inactive)</td><td class='num'>982,419</td><td class='num'>30,700</td><td class='num'>9.22%</td><td class='num'>253,464</td><td class='num'>6.23%</td><td class='num'>25.80%</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="chart-wrapper">
-    <div class="chart-title">Daily DAU by Segment (32 days)</div>
-    <div class="chart-container tall"><canvas id="sabChart"></canvas></div>
-  </div>
+</tbody></table>
+<h3>Daily Users by Stage</h3>
+<div class="chart-wrap tall"><canvas id="chartLifecycleDaily"></canvas></div>
 </div>
+<div class="section"><h2>Movie Release Impact (Jul 30)</h2>
+<table><thead><tr><th>Period</th><th>UAE Total Orders</th><th>UAE Avg/Day</th><th>Spiderman Orders</th><th>Spiderman Avg/Day</th></tr></thead><tbody>
+<tr><td>Pre-Release (Jul 20-29)</td><td>1,217,306</td><td>121,731</td><td>4,316</td><td>432</td></tr>
+<tr><td>Post-Release (Jul 30-Aug 20)</td><td>2,851,273</td><td>129,603</td><td>12,628</td><td>574</td></tr>
 
-<div class="section">
-  <div class="section-title">Lifecycle Segmentation (New / Transitional / Mature)</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">User lifecycle stages: Stage 1 = New/Prospect, Stage 2 = Transitional, Stage 3 = Mature/Active</p>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>Stage</th><th class="num">Total Users</th><th class="num">User Share %</th><th class="num">Total Orders</th><th class="num">Order Share %</th><th class="num">Ordering %</th></tr></thead>
-      <tbody>
-      <tr><td>Stage 1 (New/Prospect)</td><td class='num'>198,171</td><td class='num'>1.86%</td><td class='num'>83,014</td><td class='num'>2.04%</td><td class='num'>41.89%</td></tr>
-      <tr><td>Stage 2 (Transitional)</td><td class='num'>642,331</td><td class='num'>6.03%</td><td class='num'>81,545</td><td class='num'>2.00%</td><td class='num'>12.70%</td></tr>
-      <tr><td>Stage 3 (Mature/Active)</td><td class='num'>9,819,588</td><td class='num'>92.12%</td><td class='num'>3,904,020</td><td class='num'>95.96%</td><td class='num'>39.76%</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="chart-wrapper">
-    <div class="chart-title">Daily Users by Lifecycle Stage (32 days)</div>
-    <div class="chart-container"><canvas id="lifecycleChart"></canvas></div>
-  </div>
+</tbody></table>
+<div class="chart-wrap"><canvas id="chartMovieImpact"></canvas></div>
 </div>
-
-<div class="section">
-  <div class="section-title">Movie Release Impact (Jul 30)</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">Pre-release: Jul 20-29 (10 days) | Post-release: Jul 30-Aug 16 (18 days). Spiderman movie released Jul 30, 2026.</p>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>Period</th><th class="num">Orders</th><th class="num">Sessions</th><th class="num">Users</th><th class="num">S1 Orders</th><th class="num">S1 Users</th><th class="num">A1 Orders</th><th class="num">A1 Users</th></tr></thead>
-      <tbody>
-      <tr><td>Pre-release (Jul 20-29)</td><td class='num'>4,316</td><td class='num'>46,270</td><td class='num'>40,992</td><td class='num'>634</td><td class='num'>5,751</td><td class='num'>1,273</td><td class='num'>8,731</td></tr>
-      <tr><td>Post-release (Jul 30-Aug 16)</td><td class='num'>12,628</td><td class='num'>137,420</td><td class='num'>125,658</td><td class='num'>1,589</td><td class='num'>14,473</td><td class='num'>3,669</td><td class='num'>25,319</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="chart-wrapper">
-    <div class="chart-title">Pre vs Post Movie Release by Platform</div>
-    <div class="chart-container"><canvas id="movieChart"></canvas></div>
-  </div>
+<div class="section"><h2>Daily Cost Efficiency (CPO by Platform)</h2>
+<div class="note">Y-axis capped at $100 for readability. Days with zero orders show $0.</div>
+<div class="chart-wrap tall"><canvas id="chartDailyCpo"></canvas></div>
 </div>
+<div class="section"><h2>Churned Users (30-Day)</h2>
+<table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody>
+<tr><td>Total Churned Users (30d)</td><td>66,500</td></tr>
+<tr><td>Churned Orders</td><td>1,840</td></tr>
+<tr><td>Churn Rate</td><td>39.9%</td></tr>
 
-<div class="section">
-  <div class="section-title">Churned User Analysis (30-day)</div>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>Platform</th><th class="num">Total Users</th><th class="num">Churned Users</th><th class="num">Churned %</th><th class="num">Total Orders</th><th class="num">Churned Orders</th><th class="num">Churned Order %</th><th class="num">Churned Completed</th></tr></thead>
-      <tbody>
-      <tr><td>Meta</td><td class='num'>122,726</td><td class='num'>30,072</td><td class='num'>24.5%</td><td class='num'>16,419</td><td class='num'>1,215</td><td class='num'>7.4%</td><td class='num'>1,149</td></tr>
-      <tr><td>Google</td><td class='num'>48,266</td><td class='num'>30,229</td><td class='num'>62.6%</td><td class='num'>992</td><td class='num'>387</td><td class='num'>39.0%</td><td class='num'>373</td></tr>
-      <tr><td>TikTok</td><td class='num'>7,279</td><td class='num'>4,587</td><td class='num'>63.0%</td><td class='num'>407</td><td class='num'>142</td><td class='num'>34.9%</td><td class='num'>133</td></tr>
-      <tr><td>Snapchat</td><td class='num'>4,881</td><td class='num'>1,605</td><td class='num'>32.9%</td><td class='num'>546</td><td class='num'>95</td><td class='num'>17.4%</td><td class='num'>85</td></tr>
-      <tr><td>Total</td><td class='num'>183,152</td><td class='num'>66,493</td><td class='num'>36.3%</td><td class='num'>18,364</td><td class='num'>1,839</td><td class='num'>10.0%</td><td class='num'>1,740</td></tr>
-      </tbody>
-    </table>
-  </div>
+</tbody></table>
 </div>
+<div class="section"><h2>Top 10 AORs by Orders</h2>
+<table><thead><tr><th>#</th><th>AOR Name</th><th>Emirate</th><th>Shop Name</th><th>Orders</th></tr></thead><tbody>
+<tr><td>1</td><td>Zakher</td><td>Abu Dhabi  Emirate</td><td>POFA cafe</td><td>236</td></tr>
+<tr><td>2</td><td>Bani Yas</td><td>Abu Dhabi  Emirate</td><td>Bake Al arab BANIYAS</td><td>193</td></tr>
+<tr><td>3</td><td>AI Hili</td><td>Abu Dhabi  Emirate</td><td>POFA</td><td>151</td></tr>
+<tr><td>4</td><td>AI Noud</td><td>Abu Dhabi  Emirate</td><td>NAJM AL FANAR RESTAURANT</td><td>149</td></tr>
+<tr><td>5</td><td>AI Jimi</td><td>Abu Dhabi  Emirate</td><td>Al Fanar Restaurant & Café Al Ain</td><td>130</td></tr>
+<tr><td>6</td><td>AI Yahar</td><td>Abu Dhabi  Emirate</td><td>POFA cafe</td><td>115</td></tr>
+<tr><td>7</td><td>Shakhbout City</td><td>Abu Dhabi  Emirate</td><td>POFA Cafe</td><td>56</td></tr>
+<tr><td>8</td><td>Al Shamkhah</td><td>Abu Dhabi  Emirate</td><td>Bake Al arab SHAMKAH</td><td>48</td></tr>
+<tr><td>9</td><td>MBZ City</td><td>Abu Dhabi  Emirate</td><td>Bake Al arab Mussafah</td><td>44</td></tr>
+<tr><td>10</td><td>Al Danah</td><td>Abu Dhabi  Emirate</td><td>Bake Al arab TIBBIYA CITY</td><td>38</td></tr>
 
-<div class="section">
-  <div class="section-title">Top 10 AORs by Orders</div>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>AOR Name</th><th>Emirate</th><th class="num">Sessions</th><th class="num">Users</th><th class="num">Orders</th><th class="num">Avg Daily</th><th class="num">First Orders</th></tr></thead>
-      <tbody>
-      <tr><td>Al Danah</td><td>Abu Dhabi  Emirate</td><td class='num'>22,872</td><td class='num'>15,182</td><td class='num'>1,337</td><td class='num'>44.6</td><td class='num'>16</td></tr>
-      <tr><td>Al Nahda / Mamzar</td><td>Sharjah Emirate</td><td class='num'>30,237</td><td class='num'>18,824</td><td class='num'>1,222</td><td class='num'>40.7</td><td class='num'>16</td></tr>
-      <tr><td>Deira-Al Muraqqabat</td><td>Dubai Emirate</td><td class='num'>13,558</td><td class='num'>8,843</td><td class='num'>750</td><td class='num'>25.0</td><td class='num'>12</td></tr>
-      <tr><td>Al Qasimia</td><td>Sharjah Emirate</td><td class='num'>19,167</td><td class='num'>12,204</td><td class='num'>600</td><td class='num'>20.0</td><td class='num'>18</td></tr>
-      <tr><td>Silicon Oasis Academic City</td><td>Dubai Emirate</td><td class='num'>5,707</td><td class='num'>3,693</td><td class='num'>461</td><td class='num'>15.4</td><td class='num'>3</td></tr>
-      <tr><td>MBZ City</td><td>Abu Dhabi  Emirate</td><td class='num'>9,284</td><td class='num'>6,242</td><td class='num'>434</td><td class='num'>14.5</td><td class='num'>7</td></tr>
-      <tr><td>Al Nahyan</td><td>Abu Dhabi  Emirate</td><td class='num'>5,469</td><td class='num'>3,517</td><td class='num'>399</td><td class='num'>13.3</td><td class='num'>1</td></tr>
-      <tr><td>Al Nahda / Al Qusais 1</td><td>Dubai Emirate</td><td class='num'>8,185</td><td class='num'>5,255</td><td class='num'>396</td><td class='num'>13.2</td><td class='num'>6</td></tr>
-      <tr><td>Deira - Hor Al Anz</td><td>Dubai Emirate</td><td class='num'>6,120</td><td class='num'>4,120</td><td class='num'>323</td><td class='num'>10.8</td><td class='num'>4</td></tr>
-      <tr><td>JVC</td><td>Dubai Emirate</td><td class='num'>3,271</td><td class='num'>2,227</td><td class='num'>305</td><td class='num'>10.2</td><td class='num'>0</td></tr>
-      </tbody>
-    </table>
-  </div>
+</tbody></table>
 </div>
-
-<div class="section">
-  <div class="section-title">Day of Week Analysis</div>
-  <div style="overflow-x:auto;">
-    <table>
-      <thead><tr><th>Day</th><th class="num">Avg Sessions</th><th class="num">Avg Users</th><th class="num">Avg Orders</th><th class="num">Avg First Orders</th><th class="num">Total Orders</th><th class="num">% of Campaign</th></tr></thead>
-      <tbody>
-      <tr><td>Monday</td><td class='num'>6259.6</td><td class='num'>5593.2</td><td class='num'>492.8</td><td class='num'>2.6</td><td class='num'>2,464</td><td class='num'>13.4%</td></tr>
-      <tr><td>Tuesday</td><td class='num'>7000.8</td><td class='num'>6026.5</td><td class='num'>526.8</td><td class='num'>3.8</td><td class='num'>2,107</td><td class='num'>11.5%</td></tr>
-      <tr><td>Wednesday</td><td class='num'>6891.6</td><td class='num'>6257.4</td><td class='num'>609.8</td><td class='num'>2.4</td><td class='num'>3,049</td><td class='num'>16.6%</td></tr>
-      <tr><td>Thursday</td><td class='num'>5936.0</td><td class='num'>5649.2</td><td class='num'>637.0</td><td class='num'>3.5</td><td class='num'>2,548</td><td class='num'>13.9%</td></tr>
-      <tr><td>Friday</td><td class='num'>6700.0</td><td class='num'>6200.5</td><td class='num'>705.5</td><td class='num'>2.8</td><td class='num'>2,822</td><td class='num'>15.4%</td></tr>
-      <tr><td>Saturday</td><td class='num'>6847.2</td><td class='num'>6109.8</td><td class='num'>645.8</td><td class='num'>3.0</td><td class='num'>2,583</td><td class='num'>14.1%</td></tr>
-      <tr><td>Sunday</td><td class='num'>7748.0</td><td class='num'>6991.2</td><td class='num'>698.0</td><td class='num'>6.0</td><td class='num'>2,792</td><td class='num'>15.2%</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="section">
-  <div class="section-title">Daily Cost Efficiency (CPO by Platform)</div>
-  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">Y-axis capped at $100. Google spikes to ~$390 on Jul 23; TikTok spikes to ~$656 on Aug 15 - off-chart for readability.</p>
-  <div class="chart-wrapper">
-    <div class="chart-container tall"><canvas id="costChart"></canvas></div>
-  </div>
-</div>
-
 <div class="footer">
-  <p>Spiderman Post-Campaign Report v3 | Generated Aug 21, 2026</p>
-  <p>Keeta UAE Marketing Analytics | All data sourced from campaign CSV exports</p>
+<p>Spiderman Post-Campaign Report | Generated 2026-08-21 21:39</p>
+<p>Keeta UAE | Campaign Period: Jul 20 - Aug 20, 2026</p>
 </div>
-
 </div>
-
 <script>
-window.__CHART_DATA__ = {"contrib_labels": ["2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20"], "contrib_uae_orders": [109800, 111454, 110755, 112125, 124159, 131386, 135038, 121760, 128581, 132248, 135144, 142115, 146263, 146024, 120230, 123027, 126392, 128259, 138287, 137349, 138698, 115345, 119291, 123977, 125355, 135289, 135931, 136313, 113741, 117674, 120948, 125621], "contrib_spiderman_orders": [118, 401, 502, 511, 545, 451, 434, 376, 369, 609, 649, 788, 666, 895, 694, 695, 627, 676, 809, 742, 738, 626, 630, 602, 698, 669, 711, 713, 0, 0, 0, 0], "contrib_pct": [0.107, 0.36, 0.453, 0.456, 0.439, 0.343, 0.321, 0.309, 0.287, 0.46, 0.48, 0.554, 0.455, 0.613, 0.577, 0.565, 0.496, 0.527, 0.585, 0.54, 0.532, 0.543, 0.528, 0.486, 0.557, 0.494, 0.523, 0.523, 0.0, 0.0, 0.0, 0.0], "baseline_labels": ["2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20"], "baseline_orders": [103824, 122040, 128123, 122898, 120038, 115151, 129946, 121098, 123528, 127493, 125613, 100032, 103238, 109488, 115071, 130054, 129656, 130091, 103995, 108027, 112504, 119166, 132117, 131129, 134952, 122466, 104350, 110038, 118608, 127744, 130627, 131830, 104382, 109579, 110101, 117371, 133566, 143436, 140914, 118804, 125611, 127798, 128041, 145156, 145205, 138740, 116254, 120036, 120649, 125776, 137748, 135867, 138692, 109082, 117709, 120186, 120600, 129106, 128890, 140048, 109800, 111454, 110755, 112125, 124159, 131386, 135038, 121760, 128581, 132248, 135144, 142115, 146263, 146024, 120230, 123027, 126392, 128259, 138287, 137349, 138698, 115345, 119291, 123977, 125355, 135289, 135931, 136313, 113741, 117674, 120948, 125621], "baseline_marker_idx": 60, "dod_labels": ["2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16"], "dod_orders": [511, 545, 451, 434, 376, 369, 609, 649, 788, 666, 895, 694, 695, 627, 676, 809, 742, 738, 626, 630, 602, 698, 669, 711, 713], "dod_colors": ["rgba(156,163,175,0.5)", "rgba(14,178,118,0.7)", "rgba(239,68,68,0.7)", "rgba(239,68,68,0.7)", "rgba(239,68,68,0.7)", "rgba(239,68,68,0.7)", "rgba(14,178,118,0.7)", "rgba(14,178,118,0.7)", "rgba(14,178,118,0.7)", "rgba(239,68,68,0.7)", "rgba(14,178,118,0.7)", "rgba(239,68,68,0.7)", "rgba(14,178,118,0.7)", "rgba(239,68,68,0.7)", "rgba(14,178,118,0.7)", "rgba(14,178,118,0.7)", "rgba(239,68,68,0.7)", "rgba(239,68,68,0.7)", "rgba(239,68,68,0.7)", "rgba(14,178,118,0.7)", "rgba(239,68,68,0.7)", "rgba(14,178,118,0.7)", "rgba(239,68,68,0.7)", "rgba(14,178,118,0.7)", "rgba(14,178,118,0.7)"], "dod_pct": [0, 6.65, -17.25, -3.77, -13.36, -1.86, 65.04, 6.57, 21.42, -15.48, 34.38, -22.46, 0.14, -9.78, 7.81, 19.67, -8.28, -0.54, -15.18, 0.64, -4.44, 15.95, -4.15, 6.28, 0.28], "s1a1_cpo_s1": [18.63, 220.74, 122.82, 31.18], "s1a1_cpo_a1": [7.15, 85.97, 209.42, 78.54], "sab_labels": ["2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20"], "sab_s1": [56463, 58399, 57969, 58934, 59550, 60004, 60845, 61845, 63628, 62886, 64534, 61392, 59888, 60478, 57733, 58033, 57574, 57797, 58532, 58384, 58189, 56176, 56851, 58534, 58456, 58294, 57224, 58150, 55942, 56356, 56273, 56722], "sab_a1": [60613, 62591, 62543, 63505, 65015, 65520, 65924, 65122, 68045, 67924, 69966, 66846, 64960, 64534, 61140, 62146, 62490, 63273, 64061, 63556, 62412, 59300, 60513, 63045, 63146, 64024, 63653, 62855, 59862, 61756, 62198, 63326], "sab_s2": [143, 121, 126, 132, 136, 127, 145, 140, 144, 128, 138, 146, 154, 141, 145, 152, 167, 157, 167, 155, 142, 168, 166, 169, 201, 179, 182, 201, 196, 216, 258, 521], "sab_a2": [101486, 110271, 110551, 112261, 126821, 130607, 130990, 111364, 118277, 119824, 125422, 127745, 130032, 132444, 103132, 108188, 109805, 110382, 122514, 129113, 127482, 100746, 106616, 109169, 110202, 120145, 127775, 126326, 99543, 104080, 103873, 107139], "sab_a3": [57350, 60862, 60462, 61833, 65962, 66935, 66232, 62454, 65502, 65828, 68134, 67775, 67444, 67443, 59824, 62003, 62137, 63452, 66374, 67891, 66712, 58722, 61104, 62417, 63189, 65806, 67470, 65832, 59158, 60826, 60922, 61929], "sab_b": [27250, 29584, 28192, 27724, 30946, 33434, 33706, 30779, 32232, 32341, 34633, 32551, 33961, 34258, 28621, 29860, 29879, 30260, 31974, 33440, 33109, 27869, 29288, 29470, 29834, 31014, 32799, 32578, 27490, 28367, 27073, 27903], "lifecycle_labels": ["2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20"], "lifecycle_s1": [5132, 5296, 5189, 5163, 5853, 6325, 6419, 5426, 5862, 5906, 6160, 6787, 7367, 7738, 6107, 6447, 6404, 6315, 6844, 7120, 7373, 5858, 5916, 6348, 6217, 6503, 7022, 7181, 5569, 5625, 5307, 5392], "lifecycle_s2": [19350, 21986, 22501, 23677, 23580, 23741, 23955, 22949, 23656, 23470, 25571, 21060, 19982, 20788, 18133, 18505, 18145, 18177, 18679, 19798, 19576, 16882, 17708, 18211, 18307, 18297, 19018, 19327, 17043, 17213, 16599, 16447], "lifecycle_s3": [278823, 294546, 292153, 295549, 318997, 326561, 327468, 303329, 318310, 319555, 331096, 328608, 329090, 330772, 286355, 295430, 297503, 300829, 318099, 325621, 321097, 280241, 290914, 298245, 300504, 314662, 323063, 319434, 279579, 288763, 288691, 295701], "movie_pre": [120, 3890, 125, 181], "movie_post": [773, 11335, 349, 171], "cost_labels": ["2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-19"], "cost_meta": [12.87, 3.53, 2.58, 2.42, 2.31, 2.86, 2.93, 3.57, 3.64, 2.09, 1.94, 1.61, 1.92, 1.41, 1.88, 1.87, 2.06, 1.94, 1.59, 1.78, 1.78, 2.01, 2.08, 2.23, 1.92, 2.08, 1.91, 1.88, 2.08, 1.85], "cost_google": [0, 27.81, 51.92, 389.37, 97.34, 48.67, 48.67, 37.08, 77.87, 194.69, 194.69, 38.94, 45.81, 29.95, 25.96, 35.4, 21.63, 15.57, 16.93, 14.69, 16.57, 37.08, 17.31, 14.69, 12.17, 8.95, 10.25, 10.25, 15.57, 15.89], "cost_tiktok": [23.42, 18.74, 25.22, 54.65, 28.51, 31.23, 50.45, 34.52, 50.45, 81.97, 28.51, 34.52, 31.23, 59.62, 46.84, 29.81, 93.68, 109.3, 46.84, 54.65, 43.72, 81.97, 72.87, 163.95, 93.68, 218.6, 655.79, 109.3, 327.89, 131.16], "cost_snapchat": [108.34, 54.17, 39.4, 28.89, 39.4, 48.15, 61.91, 33.34, 15.48, 11.11, 18.84, 18.06, 18.84, 15.48, 13.54, 16.05, 28.89, 24.08, 25.49, 24.08, 22.81, 22.81, 25.49, 21.67, 22.81, 28.89, 19.7, 33.34, 24.08, 30.96]};
-</script>
-<script>
-Chart.defaults.font.family='DM Sans,sans-serif';Chart.defaults.font.size=12;Chart.defaults.color='#6B7280';
+window.__CHART_DATA__ = {"orders_comparison": {"labels": ["Jul 20", "Jul 21", "Jul 22", "Jul 23", "Jul 24", "Jul 25", "Jul 26", "Jul 27", "Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 01", "Aug 02", "Aug 03", "Aug 04", "Aug 05", "Aug 06", "Aug 07", "Aug 08", "Aug 09", "Aug 10", "Aug 11", "Aug 12", "Aug 13", "Aug 14", "Aug 15", "Aug 16", "Aug 17", "Aug 18", "Aug 19", "Aug 20"], "uae_orders": [109800, 111454, 110755, 112125, 124159, 131386, 135038, 121760, 128581, 132248, 135144, 142115, 146263, 146024, 120230, 123027, 126392, 128259, 138287, 137349, 138698, 115345, 119291, 123977, 125355, 135289, 135931, 136313, 113741, 117674, 120948, 125621], "spiderman_orders": [118, 401, 502, 511, 545, 451, 434, 376, 369, 609, 649, 788, 666, 895, 694, 695, 627, 676, 809, 742, 738, 626, 630, 602, 698, 669, 711, 713, 0, 0, 0, 0]}, "baseline_campaign": {"labels": ["May 21", "May 22", "May 23", "May 24", "May 25", "May 26", "May 27", "May 28", "May 29", "May 30", "May 31", "Jun 01", "Jun 02", "Jun 03", "Jun 04", "Jun 05", "Jun 06", "Jun 07", "Jun 08", "Jun 09", "Jun 10", "Jun 11", "Jun 12", "Jun 13", "Jun 14", "Jun 15", "Jun 16", "Jun 17", "Jun 18", "Jun 19", "Jun 20", "Jun 21", "Jun 22", "Jun 23", "Jun 24", "Jun 25", "Jun 26", "Jun 27", "Jun 28", "Jun 29", "Jun 30", "Jul 01", "Jul 02", "Jul 03", "Jul 04", "Jul 05", "Jul 06", "Jul 07", "Jul 08", "Jul 09", "Jul 10", "Jul 11", "Jul 12", "Jul 13", "Jul 14", "Jul 15", "Jul 16", "Jul 17", "Jul 18", "Jul 19", "Jul 20", "Jul 21", "Jul 22", "Jul 23", "Jul 24", "Jul 25", "Jul 26", "Jul 27", "Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 01", "Aug 02", "Aug 03", "Aug 04", "Aug 05", "Aug 06", "Aug 07", "Aug 08", "Aug 09", "Aug 10", "Aug 11", "Aug 12", "Aug 13", "Aug 14", "Aug 15", "Aug 16", "Aug 17", "Aug 18", "Aug 19", "Aug 20"], "orders": [103824, 122040, 128123, 122898, 120038, 115151, 129946, 121098, 123528, 127493, 125613, 100032, 103238, 109488, 115071, 130054, 129656, 130091, 103995, 108027, 112504, 119166, 132117, 131129, 134952, 122466, 104350, 110038, 118608, 127744, 130627, 131830, 104382, 109579, 110101, 117371, 133566, 143436, 140914, 118804, 125611, 127798, 128041, 145156, 145205, 138740, 116254, 120036, 120649, 125776, 137748, 135867, 138692, 109082, 117709, 120186, 120600, 129106, 128890, 140048, 109800, 111454, 110755, 112125, 124159, 131386, 135038, 121760, 128581, 132248, 135144, 142115, 146263, 146024, 120230, 123027, 126392, 128259, 138287, 137349, 138698, 115345, 119291, 123977, 125355, 135289, 135931, 136313, 113741, 117674, 120948, 125621], "campaign_start": 60}, "cpo_platform": {"labels": ["Meta", "Google", "TikTok", "Snapchat"], "cpo": [2.15, 18.29, 46.41, 17.23]}, "s1_a1_efficiency": {"labels": ["Meta", "Google", "TikTok", "Snapchat"], "s1_orders": [1754, 74, 133, 262], "a1_orders": [4570, 190, 78, 104]}, "sab_daily_dau": {"labels": ["Jul 20", "Jul 21", "Jul 22", "Jul 23", "Jul 24", "Jul 25", "Jul 26", "Jul 27", "Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 01", "Aug 02", "Aug 03", "Aug 04", "Aug 05", "Aug 06", "Aug 07", "Aug 08", "Aug 09", "Aug 10", "Aug 11", "Aug 12", "Aug 13", "Aug 14", "Aug 15", "Aug 16", "Aug 17", "Aug 18", "Aug 19", "Aug 20"], "datasets": {"S1": [56463, 58399, 57969, 58934, 59550, 60004, 60845, 61845, 63628, 62886, 64534, 61392, 59888, 60478, 57733, 58033, 57574, 57797, 58532, 58384, 58189, 56176, 56851, 58534, 58456, 58294, 57224, 58150, 55942, 56356, 56273, 56722], "A1": [60613, 62591, 62543, 63505, 65015, 65520, 65924, 65122, 68045, 67924, 69966, 66846, 64960, 64534, 61140, 62146, 62490, 63273, 64061, 63556, 62412, 59300, 60513, 63045, 63146, 64024, 63653, 62855, 59862, 61756, 62198, 63326], "S2": [143, 121, 126, 132, 136, 127, 145, 140, 144, 128, 138, 146, 154, 141, 145, 152, 167, 157, 167, 155, 142, 168, 166, 169, 201, 179, 182, 201, 196, 216, 258, 521], "A2": [101486, 110271, 110551, 112261, 126821, 130607, 130990, 111364, 118277, 119824, 125422, 127745, 130032, 132444, 103132, 108188, 109805, 110382, 122514, 129113, 127482, 100746, 106616, 109169, 110202, 120145, 127775, 126326, 99543, 104080, 103873, 107139], "A3": [57350, 60862, 60462, 61833, 65962, 66935, 66232, 62454, 65502, 65828, 68134, 67775, 67444, 67443, 59824, 62003, 62137, 63452, 66374, 67891, 66712, 58722, 61104, 62417, 63189, 65806, 67470, 65832, 59158, 60826, 60922, 61929], "B": [27250, 29584, 28192, 27724, 30946, 33434, 33706, 30779, 32232, 32341, 34633, 32551, 33961, 34258, 28621, 29860, 29879, 30260, 31974, 33440, 33109, 27869, 29288, 29470, 29834, 31014, 32799, 32578, 27490, 28367, 27073, 27903]}}, "lifecycle_daily": {"labels": ["Jul 20", "Jul 21", "Jul 22", "Jul 23", "Jul 24", "Jul 25", "Jul 26", "Jul 27", "Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 01", "Aug 02", "Aug 03", "Aug 04", "Aug 05", "Aug 06", "Aug 07", "Aug 08", "Aug 09", "Aug 10", "Aug 11", "Aug 12", "Aug 13", "Aug 14", "Aug 15", "Aug 16", "Aug 17", "Aug 18", "Aug 19", "Aug 20"], "stage1": [5132, 5296, 5189, 5163, 5853, 6325, 6419, 5426, 5862, 5906, 6160, 6787, 7367, 7738, 6107, 6447, 6404, 6315, 6844, 7120, 7373, 5858, 5916, 6348, 6217, 6503, 7022, 7181, 5569, 5625, 5307, 5392], "stage2": [19350, 21986, 22501, 23677, 23580, 23741, 23955, 22949, 23656, 23470, 25571, 21060, 19982, 20788, 18133, 18505, 18145, 18177, 18679, 19798, 19576, 16882, 17708, 18211, 18307, 18297, 19018, 19327, 17043, 17213, 16599, 16447], "stage3": [278823, 294546, 292153, 295549, 318997, 326561, 327468, 303329, 318310, 319555, 331096, 328608, 329090, 330772, 286355, 295430, 297503, 300829, 318099, 325621, 321097, 280241, 290914, 298245, 300504, 314662, 323063, 319434, 279579, 288763, 288691, 295701]}, "movie_impact": {"labels": ["Pre-Release (Jul 20-29)", "Post-Release (Jul 30-Aug 20)"], "uae_orders": [1217306, 2851273], "spiderman_orders": [4316, 12628]}, "daily_cpo": {"labels": ["Jul 20", "Jul 21", "Jul 22", "Jul 23", "Jul 24", "Jul 25", "Jul 26", "Jul 27", "Jul 28", "Jul 29", "Jul 30", "Jul 31", "Aug 01", "Aug 02", "Aug 03", "Aug 04", "Aug 05", "Aug 06", "Aug 07", "Aug 08", "Aug 09", "Aug 10", "Aug 11", "Aug 12", "Aug 13", "Aug 14", "Aug 15", "Aug 16", "Aug 17", "Aug 18", "Aug 19", "Aug 20"], "meta": [11.22, 3.08, 2.25, 2.11, 2.01, 2.49, 2.55, 3.11, 3.17, 1.82, 1.69, 1.4, 1.67, 1.23, 1.64, 1.63, 1.79, 1.69, 1.39, 1.55, 1.55, 1.75, 1.81, 1.94, 1.67, 1.81, 1.66, 1.64, 1.82, 0, 1.62, 0], "google": [0, 18.23, 34.03, 255.23, 63.81, 31.9, 31.9, 24.31, 51.05, 127.62, 127.62, 25.52, 30.03, 19.63, 17.02, 23.2, 14.18, 10.21, 11.1, 9.63, 10.86, 24.31, 11.34, 9.63, 7.98, 5.87, 6.72, 6.72, 10.21, 0, 10.42, 0], "tiktok": [18.23, 14.58, 19.63, 42.54, 22.19, 24.31, 39.27, 26.87, 39.27, 63.81, 22.19, 26.87, 24.31, 46.41, 36.46, 23.2, 72.92, 85.08, 36.46, 42.54, 34.03, 63.81, 51.05, 127.62, 72.92, 170.16, 510.47, 85.08, 255.23, 0, 102.09, 0], "snapchat": [63.81, 31.91, 23.2, 17.02, 23.2, 28.36, 36.46, 19.63, 9.12, 6.54, 11.1, 10.64, 11.1, 9.12, 7.98, 9.45, 17.02, 14.18, 15.01, 14.18, 13.43, 13.43, 15.01, 12.76, 13.43, 17.02, 11.6, 19.63, 14.18, 0, 18.23, 0]}};
+document.addEventListener('DOMContentLoaded',function(){
 var cd=window.__CHART_DATA__;
+var green='#0EB276',blue='#3b82f6',orange='#f59e0b',purple='#8b5cf6',teal='#14b8a6',pink='#ec4899';
+Chart.defaults.font.family="'DM Sans',sans-serif";
+Chart.defaults.font.size=11;
+Chart.defaults.color='#6b7280';
 
-new Chart(document.getElementById('contribChart'),{type:'bar',data:{labels:cd.contrib_labels,datasets:[
-{type:'bar',label:'UAE Daily Orders',data:cd.contrib_uae_orders,backgroundColor:'rgba(14,178,118,0.3)',borderColor:'rgba(14,178,118,0.6)',borderWidth:1,yAxisID:'y',order:2},
-{type:'line',label:'Spiderman Daily Orders',data:cd.contrib_spiderman_orders,borderColor:'#EF4444',backgroundColor:'#EF4444',borderWidth:2,pointRadius:3,yAxisID:'y',order:1},
-{type:'line',label:'Contribution %',data:cd.contrib_pct,borderColor:'#3B82F6',backgroundColor:'rgba(59,130,246,0.1)',borderWidth:2,pointRadius:2,yAxisID:'y1',tension:0.3,order:0}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{x:{ticks:{maxRotation:45}},y:{position:'left',title:{display:true,text:'Orders'}},y1:{position:'right',title:{display:true,text:'Contribution %'},grid:{drawOnChartArea:false},ticks:{callback:function(v){return v+'%'}}}}}});
+try{
+var c=document.getElementById('chartOrdersComparison');
+if(c){new Chart(c,{type:'bar',data:{labels:cd.orders_comparison.labels,datasets:[
+{type:'bar',label:'UAE Daily Orders',data:cd.orders_comparison.uae_orders,backgroundColor:'rgba(14,178,118,0.25)',borderColor:green,borderWidth:1,yAxisID:'y',order:2},
+{type:'line',label:'Spiderman Daily Orders',data:cd.orders_comparison.spiderman_orders,borderColor:orange,backgroundColor:orange,borderWidth:2.5,pointRadius:3,pointBackgroundColor:orange,yAxisID:'y1',order:1}
+]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top'}},
+scales:{x:{grid:{display:false},ticks:{maxRotation:45,minRotation:45}},
+y:{type:'linear',position:'left',beginAtZero:true,title:{display:true,text:'UAE Orders'},grid:{color:'#f0f0f0'}},
+y1:{type:'linear',position:'right',beginAtZero:true,title:{display:true,text:'Spiderman Orders'},grid:{drawOnChartArea:false}}}}});}
+}catch(e){console.error('Chart 1 failed:',e);}
 
-new Chart(document.getElementById('baselineChart'),{type:'line',data:{labels:cd.baseline_labels,datasets:[{
-label:'Daily Orders',data:cd.baseline_orders,borderColor:'#0EB276',backgroundColor:'rgba(14,178,118,0.1)',borderWidth:2,pointRadius:0,tension:0.3,
-segment:{borderColor:function(ctx){var i=ctx.p0DataIndex;return i<cd.baseline_marker_idx?'#9CA3AF':'#0EB276';}}
-}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{maxTicksLimit:12,maxRotation:45}},y:{title:{display:true,text:'Daily Orders'}}}},plugins:[{id:'campaignLine',afterDraw:function(chart){var ctx=chart.ctx;var xs=chart.scales.x;var idx=cd.baseline_marker_idx;if(idx!==undefined&&xs){var x=xs.getPixelForValue(idx);var t=chart.chartArea.top;var b=chart.chartArea.bottom;ctx.save();ctx.beginPath();ctx.setLineDash([5,5]);ctx.moveTo(x,t);ctx.lineTo(x,b);ctx.lineWidth=2;ctx.strokeStyle='#EF4444';ctx.stroke();ctx.font='12px DM Sans';ctx.fillStyle='#EF4444';ctx.fillText('Campaign Start',x+6,t+16);ctx.restore();}}}]});
+try{
+var c=document.getElementById('chartBaselineCampaign');
+if(c){
+var bc=cd.baseline_campaign,si=bc.campaign_start;
+var bp={id:'cBg',beforeDatasetsDraw:function(ch){var xs=ch.scales.x;if(!xs)return;var x=xs.getPixelForValue(si),y=ch.chartArea.top,h=ch.chartArea.bottom-y,ctx=ch.ctx;ctx.save();ctx.fillStyle='rgba(14,178,118,0.06)';ctx.fillRect(x,y,xs.right-x,h);ctx.strokeStyle=green;ctx.lineWidth=2;ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+h);ctx.stroke();ctx.restore();}};
+new Chart(c,{type:'line',data:{labels:bc.labels,datasets:[{label:'Daily UAE Orders',data:bc.orders,borderColor:green,backgroundColor:'rgba(14,178,118,0.08)',borderWidth:2,fill:true,tension:0.3,pointRadius:0}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},
+scales:{x:{grid:{display:false},ticks:{maxRotation:45,minRotation:45,autoSkip:true,maxTicksLimit:15}},y:{beginAtZero:false,grid:{color:'#f0f0f0'}}}},plugins:[bp]});}
+}catch(e){console.error('Chart 2 failed:',e);}
 
-new Chart(document.getElementById('dodChart'),{type:'bar',data:{labels:cd.dod_labels,datasets:[
-{type:'bar',label:'Daily Orders',data:cd.dod_orders,backgroundColor:cd.dod_colors,borderWidth:0},
-{type:'line',label:'DoD % Change',data:cd.dod_pct,borderColor:'#3B82F6',backgroundColor:'transparent',borderWidth:2,pointRadius:3,yAxisID:'y1',tension:0.2}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{x:{ticks:{maxRotation:45}},y:{position:'left',title:{display:true,text:'Orders'}},y1:{position:'right',title:{display:true,text:'DoD %'},grid:{drawOnChartArea:false}}}}}});
+try{
+var c=document.getElementById('chartCpoPlatform');
+if(c){var cp=cd.cpo_platform;new Chart(c,{type:'bar',data:{labels:cp.labels,datasets:[{label:'CPO ($)',data:cp.cpo,backgroundColor:[green,blue,purple,orange],borderRadius:8}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:'#f0f0f0'},title:{display:true,text:'Cost per Order ($)'}}}}});}
+}catch(e){console.error('Chart 3 failed:',e);}
 
-new Chart(document.getElementById('s1a1Chart'),{type:'bar',data:{labels:['Meta','Google','TikTok','Snapchat'],datasets:[
-{label:'S1 CPO ($)',data:cd.s1a1_cpo_s1,backgroundColor:'rgba(14,178,118,0.7)',borderRadius:4},
-{label:'A1 CPO ($)',data:cd.s1a1_cpo_a1,backgroundColor:'rgba(59,130,246,0.7)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{y:{beginAtZero:true,max:250,title:{display:true,text:'CPO ($)'}}}}}});
+try{
+var c=document.getElementById('chartS1A1Efficiency');
+if(c){var sa=cd.s1_a1_efficiency;new Chart(c,{type:'bar',data:{labels:sa.labels,datasets:[
+{label:'S1 Orders',data:sa.s1_orders,backgroundColor:green,borderRadius:6},
+{label:'A1 Orders',data:sa.a1_orders,backgroundColor:teal,borderRadius:6}]},
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},
+scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:'#f0f0f0'}}}}});}
+}catch(e){console.error('Chart 4 failed:',e);}
 
-new Chart(document.getElementById('sabChart'),{type:'line',data:{labels:cd.sab_labels,datasets:[
-{label:'S1',data:cd.sab_s1,borderColor:'#0EB276',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'A1',data:cd.sab_a1,borderColor:'#3B82F6',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'S2',data:cd.sab_s2,borderColor:'#F59E0B',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'A2',data:cd.sab_a2,borderColor:'#8B5CF6',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'A3',data:cd.sab_a3,borderColor:'#EF4444',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'B',data:cd.sab_b,borderColor:'#9CA3AF',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{x:{ticks:{maxRotation:45,maxTicksLimit:10}},y:{title:{display:true,text:'Daily DAU'}}}}}});
+try{
+var c=document.getElementById('chartSabDaily');
+if(c){var sd=cd.sab_daily_dau,sc={S1:green,A1:blue,S2:orange,A2:purple,A3:teal,B:pink},ds=[];
+Object.keys(sd.datasets).forEach(function(sg){ds.push({label:sg,data:sd.datasets[sg],borderColor:sc[sg]||'#999',backgroundColor:sc[sg]||'#999',borderWidth:2,tension:0.3,pointRadius:2});});
+new Chart(c,{type:'line',data:{labels:sd.labels,datasets:ds},
+options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top'}},
+scales:{x:{grid:{display:false},ticks:{maxRotation:45,minRotation:45}},y:{beginAtZero:true,grid:{color:'#f0f0f0'}}}}});}
+}catch(e){console.error('Chart 5 failed:',e);}
 
-new Chart(document.getElementById('lifecycleChart'),{type:'line',data:{labels:cd.lifecycle_labels,datasets:[
-{label:'Stage 1 (New)',data:cd.lifecycle_s1,borderColor:'#0EB276',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'Stage 2 (Transitional)',data:cd.lifecycle_s2,borderColor:'#F59E0B',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'Stage 3 (Mature)',data:cd.lifecycle_s3,borderColor:'#3B82F6',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{x:{ticks:{maxRotation:45,maxTicksLimit:10}},y:{title:{display:true,text:'Daily Users'}}}}}});
+try{
+var c=document.getElementById('chartLifecycleDaily');
+if(c){var lc=cd.lifecycle_daily;new Chart(c,{type:'line',data:{labels:lc.labels,datasets:[
+{label:'Stage 1 (New)',data:lc.stage1,borderColor:blue,backgroundColor:blue,borderWidth:2,tension:0.3,pointRadius:2},
+{label:'Stage 2 (Transitional)',data:lc.stage2,borderColor:orange,backgroundColor:orange,borderWidth:2,tension:0.3,pointRadius:2},
+{label:'Stage 3 (Mature)',data:lc.stage3,borderColor:green,backgroundColor:green,borderWidth:2,tension:0.3,pointRadius:0}
+]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top'}},
+scales:{x:{grid:{display:false},ticks:{maxRotation:45,minRotation:45}},y:{beginAtZero:true,grid:{color:'#f0f0f0'}}}}});}
+}catch(e){console.error('Chart 6 failed:',e);}
 
-new Chart(document.getElementById('movieChart'),{type:'bar',data:{labels:['Google','Meta','Snapchat','TikTok'],datasets:[
-{label:'Pre-Release Orders',data:cd.movie_pre,backgroundColor:'rgba(156,163,175,0.7)',borderRadius:4},
-{label:'Post-Release Orders',data:cd.movie_post,backgroundColor:'rgba(14,178,118,0.7)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{y:{beginAtZero:true,title:{display:true,text:'Orders'}}}}}});
+try{
+var c=document.getElementById('chartMovieImpact');
+if(c){var mi=cd.movie_impact;new Chart(c,{type:'bar',data:{labels:mi.labels,datasets:[
+{label:'UAE Total Orders',data:mi.uae_orders,backgroundColor:green,borderRadius:6},
+{label:'Spiderman Orders',data:mi.spiderman_orders,backgroundColor:orange,borderRadius:6}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},
+scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:'#f0f0f0'}}}}});}
+}catch(e){console.error('Chart 7 failed:',e);}
 
-new Chart(document.getElementById('costChart'),{type:'line',data:{labels:cd.cost_labels,datasets:[
-{label:'Meta CPO',data:cd.cost_meta,borderColor:'#0EB276',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'Google CPO',data:cd.cost_google,borderColor:'#3B82F6',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'TikTok CPO',data:cd.cost_tiktok,borderColor:'#F59E0B',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3},
-{label:'Snapchat CPO',data:cd.cost_snapchat,borderColor:'#EF4444',backgroundColor:'transparent',borderWidth:2,pointRadius:0,tension:0.3}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},tooltip:{mode:'index',intersect:false}},scales:{x:{ticks:{maxRotation:45,maxTicksLimit:10}},y:{beginAtZero:true,max:100,title:{display:true,text:'CPO ($)'},ticks:{callback:function(v){return '$'+v;}}}}}});
+try{
+var c=document.getElementById('chartDailyCpo');
+if(c){var dc=cd.daily_cpo;new Chart(c,{type:'line',data:{labels:dc.labels,datasets:[
+{label:'Meta',data:dc.meta,borderColor:green,backgroundColor:green,borderWidth:2,tension:0.3,pointRadius:2},
+{label:'Google',data:dc.google,borderColor:blue,backgroundColor:blue,borderWidth:2,tension:0.3,pointRadius:2},
+{label:'TikTok',data:dc.tiktok,borderColor:purple,backgroundColor:purple,borderWidth:2,tension:0.3,pointRadius:2},
+{label:'Snapchat',data:dc.snapchat,borderColor:orange,backgroundColor:orange,borderWidth:2,tension:0.3,pointRadius:2}
+]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top'}},
+scales:{x:{grid:{display:false},ticks:{maxRotation:45,minRotation:45}},y:{beginAtZero:true,max:100,grid:{color:'#f0f0f0'},title:{display:true,text:'CPO ($)'}}}}});}
+}catch(e){console.error('Chart 8 failed:',e);}
+});
+
 </script>
 </body>
 </html>
